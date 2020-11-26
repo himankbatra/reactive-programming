@@ -7,6 +7,7 @@ import reactor.test.StepVerifier;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class FluxAndMonoFactoryTests {
@@ -51,7 +52,7 @@ public class FluxAndMonoFactoryTests {
     @Test
     public void monoUsingJustOrEmpty(){
 
-        Mono<String> mono = Mono.justOrEmpty(null); //Mono.Empty();
+        Mono<String> mono = Mono.justOrEmpty(Optional.empty()); //Mono.Empty();
 
         StepVerifier.create(mono.log())
                 .verifyComplete();

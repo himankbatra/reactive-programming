@@ -17,7 +17,7 @@ public class FluxAndMonoTransformTests {
     public void transformUsingMap() {
 
         Flux<String> namesFlux = Flux.fromIterable(names)
-                .map(s -> s.toUpperCase()) //ADAM, ANNA, JACK, JENNY
+                .map(String::toUpperCase) //ADAM, ANNA, JACK, JENNY
                 .log();
 
         StepVerifier.create(namesFlux)
@@ -30,7 +30,7 @@ public class FluxAndMonoTransformTests {
     public void transformUsingMap_Length() {
 
         Flux<Integer> namesFlux = Flux.fromIterable(names)
-                .map(s -> s.length()) //ADAM, ANNA, JACK, JENNY
+                .map(String::length) //ADAM, ANNA, JACK, JENNY
                 .log();
 
         StepVerifier.create(namesFlux)
@@ -43,7 +43,7 @@ public class FluxAndMonoTransformTests {
     public void transformUsingMap_Length_repeat() {
 
         Flux<Integer> namesFlux = Flux.fromIterable(names)
-                .map(s -> s.length()) //ADAM, ANNA, JACK, JENNY
+                .map(String::length) //ADAM, ANNA, JACK, JENNY
                 .repeat(1)
                 .log();
 
@@ -59,7 +59,7 @@ public class FluxAndMonoTransformTests {
 
 
         Flux<Integer> namesFlux = Flux.fromIterable(names)
-                .map(s -> s.length()) //ADAM, ANNA, JACK, JENNY
+                .map(String::length) //ADAM, ANNA, JACK, JENNY
                 .repeatWhen(repeat -> {
                     return repeat.all(size -> size>4) //repeats once
                             .repeat(1); //repeats once
@@ -78,7 +78,7 @@ public class FluxAndMonoTransformTests {
 
         Flux<String> namesFlux = Flux.fromIterable(names)
                 .filter(s -> s.length()>4)
-                .map(s -> s.toUpperCase()) // JENNY
+                .map(String::toUpperCase) // JENNY
                 .log();
 
         StepVerifier.create(namesFlux)
@@ -119,7 +119,7 @@ public class FluxAndMonoTransformTests {
                 .window(2) //Flux<Flux<String> -> (A,B), (C,D), (E,F)
                 .flatMap((s) ->
                     s.map(this::convertToList).subscribeOn(parallel())) // Flux<List<String>
-                    .flatMap(s -> Flux.fromIterable(s)) //Flux<String>
+                    .flatMap(Flux::fromIterable) //Flux<String>
                 .log();
 
         StepVerifier.create(stringFlux)
@@ -136,7 +136,7 @@ public class FluxAndMonoTransformTests {
                         s.map(this::convertToList).`(parallel())) */// Flux<List<String>
                 .flatMapSequential((s) ->
                         s.map(this::convertToList).subscribeOn(parallel()))
-                .flatMap(s -> Flux.fromIterable(s)) //Flux<String>
+                .flatMap(Flux::fromIterable) //Flux<String>
                 .log();
 
         StepVerifier.create(stringFlux)

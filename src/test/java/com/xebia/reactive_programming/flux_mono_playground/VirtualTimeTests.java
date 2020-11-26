@@ -29,7 +29,7 @@ public class VirtualTimeTests {
         Flux<Long> longFlux = Flux.interval(Duration.ofSeconds(1))
                 .take(3);
 
-        StepVerifier.withVirtualTime(() -> longFlux.log())
+        StepVerifier.withVirtualTime(longFlux::log)
                 .expectSubscription()
                 .thenAwait(Duration.ofSeconds(3))
                 .expectNext(0L, 1L, 2L)

@@ -93,7 +93,7 @@ class FluxResourceTests {
     @Test
     public void fluxStream() {
 
-        Flux<Long> longStreamFlux = webTestClient.get().uri("/fluxstream")
+        Flux<Long> longStreamFlux = webTestClient.get().uri("/flux-stream")
                 .accept(MediaType.APPLICATION_STREAM_JSON)
                 .exchange()
                 .expectStatus().isOk()

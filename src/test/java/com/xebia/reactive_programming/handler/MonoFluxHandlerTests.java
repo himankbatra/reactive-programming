@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 @AutoConfigureWebTestClient
 @DirtiesContext
-class SampleHandlerFunctionTests {
+class MonoFluxHandlerTests {
 
 
     @Autowired

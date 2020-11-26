@@ -65,7 +65,7 @@ public class FluxAndMonoCombineTests {
 
         Flux<String> mergedFlux = Flux.concat(flux1,flux2);
 
-        StepVerifier.withVirtualTime(()->mergedFlux.log())
+        StepVerifier.withVirtualTime(mergedFlux::log)
                 .expectSubscription()
                 .thenAwait(Duration.ofSeconds(6))
                 .expectNextCount(6)
@@ -85,9 +85,8 @@ public class FluxAndMonoCombineTests {
         Flux<String> flux1 = Flux.just("A","B","C");
         Flux<String> flux2 = Flux.just("D","E","F");
 
-        Flux<String> mergedFlux = Flux.zip(flux1,flux2, (t1,t2) -> {
-            return t1.concat(t2); // AD, BE, CF
-        }); //A,D : B,E : C:F
+        // AD, BE, CF
+        Flux<String> mergedFlux = Flux.zip(flux1,flux2, String::concat); //A,D : B,E : C:F
 
         StepVerifier.create(mergedFlux.log())
                 .expectSubscription()

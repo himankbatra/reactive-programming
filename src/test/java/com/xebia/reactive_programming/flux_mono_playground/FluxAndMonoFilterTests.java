@@ -9,26 +9,26 @@ import java.util.List;
 
 public class FluxAndMonoFilterTests {
 
-    List<String> names = Arrays.asList("adam","anna","jack","jenny");
+    List<String> names = Arrays.asList("adam", "anna", "jack", "jenny");
 
     @Test
-    public void filterTest(){
+    public void filterTest() {
 
         Flux<String> namesFlux = Flux.fromIterable(names) // adam, anna, jack,jenny
-                .filter(s->s.startsWith("a"))
+                .filter(s -> s.startsWith("a"))
                 .log(); //adam,anna
 
         StepVerifier.create(namesFlux)
-                .expectNext("adam","anna")
+                .expectNext("adam", "anna")
                 .verifyComplete();
 
     }
 
     @Test
-    public void filterTestLength(){
+    public void filterTestLength() {
 
         Flux<String> namesFlux = Flux.fromIterable(names) // adam, anna, jack,jenny
-                .filter(s->s.length() >4)
+                .filter(s -> s.length() > 4)
                 .log(); //jenny
 
         StepVerifier.create(namesFlux)

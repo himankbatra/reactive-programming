@@ -40,7 +40,7 @@ public class FluxAndMonoWithTimeTests {
     public void infiniteSequenceMap() throws InterruptedException {
 
         Flux<Integer> finiteFlux = Flux.interval(Duration.ofMillis(100))
-                .map(l -> l.intValue())
+                .map(Long::intValue)
                 .take(3)
                 .log();
 
@@ -56,7 +56,7 @@ public class FluxAndMonoWithTimeTests {
 
         Flux<Integer> finiteFlux = Flux.interval(Duration.ofMillis(100))
                 .delayElements(Duration.ofSeconds(1))
-                .map(l -> l.intValue())
+                .map(Long::intValue)
                 .take(3)
                 .log();
 

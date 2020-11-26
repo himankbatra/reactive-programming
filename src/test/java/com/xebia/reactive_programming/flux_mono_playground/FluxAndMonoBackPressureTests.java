@@ -2,6 +2,7 @@ package com.xebia.reactive_programming.flux_mono_playground;
 
 
 import org.junit.jupiter.api.Test;
+import org.reactivestreams.Subscription;
 import reactor.core.publisher.BaseSubscriber;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
@@ -47,7 +48,7 @@ public class FluxAndMonoBackPressureTests {
         finiteFlux.subscribe((element) -> System.out.println("Element is : " + element)
                 , (e) -> System.err.println("Exception is : " + e)
                 , () -> System.out.println("Done")
-                , (subscription -> subscription.cancel()));
+                , (Subscription::cancel));
 
     }
 
